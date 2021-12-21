@@ -27,3 +27,6 @@ coverage.txt
 .idea
 onit
 gnmi-netconf-adapter
+
+# vscode files
+.vscode
