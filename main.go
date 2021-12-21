@@ -15,7 +15,7 @@
 package main
 
 import (
-	"github.com/onosproject/gnmi-netconf-adapter/cmd"
+	"github.com/onosproject/custom-api/cmd"
 	"k8s.io/klog"
 )
 

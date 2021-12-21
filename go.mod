@@ -1,4 +1,4 @@
-module github.com/onosproject/gnmi-netconf-adapter
+module github.com/onosproject/custom-api
 
 go 1.12
 

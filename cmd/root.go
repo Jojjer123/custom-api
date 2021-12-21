@@ -28,8 +28,8 @@ var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "gnmi-netconf-adapter",
-	Short: "gNMI to NETCONF Adapter",
+	Use:   "custom-api",
+	Short: "gNMI to Custom API",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -48,7 +48,7 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.gnmi-netconf-adapter.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.custom-api.yaml)")
 }
 
 // initConfig reads in config file and ENV variables if set.
@@ -66,7 +66,7 @@ func initConfig() {
 
 		// Search config in home directory with name ".gnmi-netconf-adapter" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigName(".gnmi-netconf-adapter")
+		viper.SetConfigName(".custom-api")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
