@@ -6,6 +6,8 @@ WORKDIR /workspace
 COPY . .
 RUN make build && cp /workspace/${o} /workspace/main
 
-FROM alpine AS final
-COPY --from=builder /workspace/main ./
-CMD [ "./main", "server"]
+CMD [ "./main"]
+
+# FROM alpine AS final
+# COPY --from=builder /workspace/main ./
+# CMD [ "./main", "server"]

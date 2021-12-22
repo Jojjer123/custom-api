@@ -14,12 +14,11 @@
 
 package main
 
-import (
-	"github.com/onosproject/custom-api/cmd"
-	"k8s.io/klog"
-)
-
 func main() {
-	klog.InitFlags(nil)
-	cmd.Execute()
+	// klog.InitFlags(nil)
+	for true {
+		println("YAY")
+	}
+
+	// cmd.Execute()
 }
