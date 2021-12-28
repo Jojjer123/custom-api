@@ -14,11 +14,53 @@
 
 package main
 
+import (
+	"context"
+	"log"
+	"net"
+	"net/http"
+
+	pb "custom-api/gen/proto"
+
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"google.golang.org/grpc"
+)
+
+type testApiServer struct {
+	pb.UnimplementedTestApiServer
+}
+
+func (s *testApiServer) GetUser(ctx context.Context, req *pb.UserRequest) (*pb.UserResponse, error) {
+	return &pb.UserResponse{}, nil
+}
+
+func (s *testApiServer) Echo(ctx context.Context, req *pb.ResponseRequest) (*pb.ResponseRequest, error) {
+	return req, nil
+}
+
 func main() {
-	// klog.InitFlags(nil)
-	for true {
-		println("YAY")
+	go func() {
+		// mux (multiplexer)
+		mux := runtime.NewServeMux()
+
+		// register server
+		pb.RegisterTestApiHandlerServer(context.Background(), mux, &testApiServer{})
+
+		// http server
+		log.Fatalln(http.ListenAndServe(":8069", mux))
+	}()
+
+	listner, err := net.Listen("tcp", ":8080")
+	if err != nil {
+		log.Fatalln(err)
 	}
 
-	// cmd.Execute()
+	grpcServer := grpc.NewServer()
+
+	pb.RegisterTestApiServer(grpcServer, &testApiServer{})
+
+	err = grpcServer.Serve(listner)
+	if err != nil {
+		log.Println(err)
+	}
 }
