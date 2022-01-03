@@ -6,21 +6,24 @@ option go_package ="./proto";
 
 import "google/api/annotations.proto";
 
-service TestApi {
-    rpc Echo(ResponseRequest) returns (ResponseRequest) {
+// The service that handles the commuincation between the user and the custom app microservice (custom-api)
+service HttpApi {
+    rpc Echo(UserMessage) returns (UserMessage) {
         option (google.api.http) = {
             post: "/echo"
             body: "*" // * means can accept the body from json
         };
     }
-    rpc GetUser(UserRequest) returns (UserResponse) {}
+    //rpc GetUser(UserRequest) returns (UserResponse) {}
 }
 
-message ResponseRequest {
+// The structure for the data sent by the user 
+message UserMessage {
     string msg = 1;
+    
 }
 
-message UserRequest {
+/*message UserRequest {
     string uuid = 1;
 }
 
@@ -28,4 +31,4 @@ message UserResponse {
     string name = 1;
     int32 age = 2;
     string email = 3;
-}
+} */

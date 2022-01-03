@@ -26,15 +26,16 @@ import (
 	"google.golang.org/grpc"
 )
 
-type testApiServer struct {
-	pb.UnimplementedTestApiServer
+type HttpApiServer struct {
+	pb.UnimplementedHttpApiServer
 }
 
-func (s *testApiServer) GetUser(ctx context.Context, req *pb.UserRequest) (*pb.UserResponse, error) {
+/*func (s *HttpApiServer) GetUser(ctx context.Context, req *pb.UserRequest) (*pb.UserResponse, error) {
 	return &pb.UserResponse{}, nil
-}
+} */
 
-func (s *testApiServer) Echo(ctx context.Context, req *pb.ResponseRequest) (*pb.ResponseRequest, error) {
+func (s *HttpApiServer) Echo(ctx context.Context, req *pb.UserMessage) (*pb.UserMessage, error) {
+	//log.Fatalln("hej", cli.ExecuteGet(ctx))
 	return req, nil
 }
 
@@ -44,7 +45,7 @@ func main() {
 		mux := runtime.NewServeMux()
 
 		// register server
-		pb.RegisterTestApiHandlerServer(context.Background(), mux, &testApiServer{})
+		pb.RegisterHttpApiHandlerServer(context.Background(), mux, &HttpApiServer{})
 
 		// http server
 		log.Fatalln(http.ListenAndServe(":8069", mux))
@@ -57,7 +58,7 @@ func main() {
 
 	grpcServer := grpc.NewServer()
 
-	pb.RegisterTestApiServer(grpcServer, &testApiServer{})
+	pb.RegisterHttpApiServer(grpcServer, &HttpApiServer{})
 
 	err = grpcServer.Serve(listner)
 	if err != nil {
