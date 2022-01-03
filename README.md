@@ -1,4 +1,6 @@
-# gnmi-netconf-adapter
+# Custom-API
+## Authors
+Michael Mozooni & Gustav Rehnholm
 
 [![Build Status](https://travis-ci.org/onosproject/gnmi-netconf-adapter.svg?branch=master)](https://travis-ci.org/onosproject/gnmi-netconf-adapter)
 [![Integration Test Status](https://img.shields.io/travis/onosproject/gnmi-netconf-adapter?label=Integration%20Tests&logo=Integration)](https://travis-ci.org/onosproject/onos-test)
@@ -8,6 +10,15 @@
 [![GoDoc](https://godoc.org/github.com/onosproject/gnmi-netconf-adapter?status.svg)](https://godoc.org/github.com/onosproject/gnmi-netconf-adapter)
 
 gNMI NETCONF Adapter is a Microservice that consumes gNMI requests from ONOS Config, marshallings them to XML Payloads and forwards them to NETCONF capable functions, for e.g. Devices such as Routers/Switch or software simulating these functions.
+
+## How to run:
+Run the following in the terminal:
+1. `make clean`
+2. `make generate`
+3. `make run`
+
+
+
 
 A useful place to start with documentation is the ONOS Contributing guide or this projects prerequisite document.
 
