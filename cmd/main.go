@@ -20,7 +20,7 @@ import (
 	"net"
 	"net/http"
 
-	pb "custom-api/gen/proto"
+	pb "custom-api/pkg"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
@@ -29,10 +29,6 @@ import (
 type HttpApiServer struct {
 	pb.UnimplementedHttpApiServer
 }
-
-/*func (s *HttpApiServer) GetUser(ctx context.Context, req *pb.UserRequest) (*pb.UserResponse, error) {
-	return &pb.UserResponse{}, nil
-} */
 
 func (s *HttpApiServer) Echo(ctx context.Context, req *pb.UserMessage) (*pb.UserMessage, error) {
 	//log.Fatalln("hej", cli.ExecuteGet(ctx))
