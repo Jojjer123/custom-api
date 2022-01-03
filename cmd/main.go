@@ -17,47 +17,30 @@ package main
 import (
 	"context"
 	"log"
-	"net"
 	"net/http"
 
 	pb "custom-api/pkg"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
-	"google.golang.org/grpc"
 )
 
 type HttpApiServer struct {
 	pb.UnimplementedHttpApiServer
 }
 
+// Echo function (return req)
 func (s *HttpApiServer) Echo(ctx context.Context, req *pb.UserMessage) (*pb.UserMessage, error) {
-	//log.Fatalln("hej", cli.ExecuteGet(ctx))
 	return req, nil
 }
 
 func main() {
-	go func() {
-		// mux (multiplexer)
-		mux := runtime.NewServeMux()
 
-		// register server
-		pb.RegisterHttpApiHandlerServer(context.Background(), mux, &HttpApiServer{})
+	// mux (multiplexer)
+	mux := runtime.NewServeMux()
 
-		// http server
-		log.Fatalln(http.ListenAndServe(":8069", mux))
-	}()
+	// register the server
+	pb.RegisterHttpApiHandlerServer(context.Background(), mux, &HttpApiServer{})
 
-	listner, err := net.Listen("tcp", ":8080")
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	grpcServer := grpc.NewServer()
-
-	pb.RegisterHttpApiServer(grpcServer, &HttpApiServer{})
-
-	err = grpcServer.Serve(listner)
-	if err != nil {
-		log.Println(err)
-	}
+	// http server
+	log.Fatalln(http.ListenAndServe(":8080", mux))
 }

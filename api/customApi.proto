@@ -3,7 +3,7 @@ syntax = "proto3";
 package main;
 
 option go_package ="./proto";
-
+// import google annontations to work with REST API syntax
 import "google/api/annotations.proto";
 
 // The service that handles the commuincation between the user and the custom app microservice (custom-api)
@@ -14,7 +14,6 @@ service HttpApi {
             body: "*" // * means can accept the body from json
         };
     }
-    //rpc GetUser(UserRequest) returns (UserResponse) {}
 }
 
 // The structure for the data sent by the user 
