@@ -35,10 +35,15 @@ func (s *HttpApiServer) Echo(ctx context.Context, req *pb.UserMessage) (*pb.User
 
 // Run a http server that the user can communicate with
 func main() {
-	// mux (multiplexer)
+	// Make a HTTP request multiplexer that matches the URL of incoming req.
+	// (Use the NewSurveMux() function to create an empty servemux)
 	mux := runtime.NewServeMux()
 	// register the server
 	pb.RegisterHttpApiHandlerServer(context.Background(), mux, &HttpApiServer{})
-	// http server
+
+	//Create a new server and start listening for incoming requests
+	// with the http.ListenAndServe() function, passing in servemux for it to
+	// match reqs against as the second parameter.
+	// ListenAndServe = Listen on TCP network address and handle requests on incoming connections
 	log.Fatalln(http.ListenAndServe(":8080", mux))
 }
