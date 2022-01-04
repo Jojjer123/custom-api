@@ -6,7 +6,8 @@ option go_package ="./proto";
 // import google annontations to work with REST API syntax
 import "google/api/annotations.proto";
 
-// The service that handles the commuincation between the user and the custom app microservice (custom-api)
+// The service that handles the commuincation between
+// the user and the custom-api module
 service HttpApi {
     rpc Echo(UserMessage) returns (UserMessage) {
         option (google.api.http) = {

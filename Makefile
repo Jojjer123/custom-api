@@ -5,13 +5,10 @@ include ./common.mk
 ##
 
 # Tools
-
 .PHONY: coverage
 coverage: overalls | $(GOVERALLS) ; $(info $(M) running coveralls) @ ## run coveralls (PROJECT)
 	$Q $(GOVERALLS) -coverprofile=overalls.coverprofile -service=travis-ci
 
-
-# this and the common clean will both executed because of ::
 
 .PHONY: clean
 clean:: ; $(info $(M) custom-api clean) @ ## clean (ADDITIONAL)
@@ -41,21 +38,8 @@ kind: images ; $(info $(M) add images to kind cluster...) @ ## add images to kin
 	@if [ "`kind get clusters`" = '' ]; then echo "no kind cluster found" && exit 1; fi
 	kind load docker-image onosproject/$(PRJ_NAME):$(PRJ_VERSION)
 
-#create:
-#	protoc --proto_path=proto proto/*.proto --go_out=gen/
-#	protoc --proto_path=proto proto/*.proto --go-grpc_out=gen/
-#	protoc -I . --grpc-gateway_out ./gen/ \
-#    --grpc-gateway_opt logtostderr=true \
-#    --grpc-gateway_opt paths=source_relative \
-#    --grpc-gateway_opt generate_unbound_methods=true \
-#    proto/customApi.proto
-
 generate:
 	cd api; buf generate
 
 run:
 	cd cmd; go run main.go
-
-#mkdir -p google/api
-#curl https://raw.githubusercontent.com/googleapis/googleapis/master/google/api/annotations.proto > google/api/annotations.proto
-#curl https://raw.githubusercontent.com/googleapis/googleapis/master/google/api/http.proto > google/api/http.proto

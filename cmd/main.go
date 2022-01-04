@@ -28,19 +28,17 @@ type HttpApiServer struct {
 	pb.UnimplementedHttpApiServer
 }
 
-// Echo function (return req)
+// Return the input message
 func (s *HttpApiServer) Echo(ctx context.Context, req *pb.UserMessage) (*pb.UserMessage, error) {
 	return req, nil
 }
 
+// Run a http server that the user can communicate with
 func main() {
-
 	// mux (multiplexer)
 	mux := runtime.NewServeMux()
-
 	// register the server
 	pb.RegisterHttpApiHandlerServer(context.Background(), mux, &HttpApiServer{})
-
 	// http server
 	log.Fatalln(http.ListenAndServe(":8080", mux))
 }

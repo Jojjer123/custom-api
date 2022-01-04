@@ -11,16 +11,21 @@ Michael Mozooni & Gustav Rehnholm
 
 gNMI NETCONF Adapter is a Microservice that consumes gNMI requests from ONOS Config, marshallings them to XML Payloads and forwards them to NETCONF capable functions, for e.g. Devices such as Routers/Switch or software simulating these functions.
 
-## How to run:
-Run the following in the terminal:
-1. `make clean`
-2. `make generate`
-3. `make run`
-
-
-
 
 A useful place to start with documentation is the ONOS Contributing guide or this projects prerequisite document.
 
 - [Contributing to ONOS Project](https://docs.onosproject.org/developers/contributing/)
 - [prerequisite](./docs/prerequisite.md)
+
+
+## How to install
+To get the google api files, run the following:
+1. `mkdir -p google/api`
+2. `curl https://raw.githubusercontent.com/googleapis/googleapis/master/google/api/annotations.proto > google/api/annotations.proto`
+3. `curl https://raw.githubusercontent.com/googleapis/googleapis/master/google/api/http.proto > google/api/http.proto`
+
+## How to run:
+Run the following in the terminal:
+1. `make clean`
+2. `make generate`
+3. `make run`
