@@ -1,30 +1,14 @@
 include ./common.mk
 
-##
-# Add in project specific targets below
-##
-
 # Tools
 .PHONY: coverage
 coverage: overalls | $(GOVERALLS) ; $(info $(M) running coveralls) @ ## run coveralls (PROJECT)
 	$Q $(GOVERALLS) -coverprofile=overalls.coverprofile -service=travis-ci
 
-
 .PHONY: clean
 clean:: ; $(info $(M) custom-api clean) @ ## clean (ADDITIONAL)
 	@rm -rf  build/_output
 	rm -rf pkg
-
-
-# example of override the build target in the common makefile, you'll get a make warning about overriding
-# but the return code will be ok
-
-# .PHONY: build
-# build: $(BIN) ; $(info $(M) building executable…) @ ## Build program binary (OVERRIDE)
-# 	$Q CGO_ENABLED=$(CGO_ENABLED) $(GO) build \
-# 		-tags release \
-# 		-ldflags '-X $(MODULE)/cmd.commit=$(VERSION) -X $(MODULE)/cmd.date=$(DATE)' \
-# 		-o $(BIN)/$(basename $(MODULE)) main.go
 
 .PHONY: images
 images: docker-$(PRJ_NAME) ; $(info $(M) building images...) @ ## build all docker images (ADDITIONAL)
