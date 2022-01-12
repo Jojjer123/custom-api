@@ -3,6 +3,7 @@ syntax = "proto3";
 package main;
 
 option go_package ="./proto";
+
 // import google annontations to work with REST API syntax
 import "google/api/annotations.proto";
 
